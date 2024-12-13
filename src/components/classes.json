@@ -1,0 +1,61 @@
+{
+    "classes": [
+        {
+            "key": 1,
+            "name": "ClassA",
+            "properties": [
+                {
+                    "name": "propertyA",
+                    "type": "string",
+                    "visibility": "private"
+                }
+            ],
+            "methods": [
+                {
+                    "name": "methodA",
+                    "type": "void",
+                    "visibility": "public",
+                    "parameters": [
+                        {
+                            "name": "param1",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": 2,
+            "name": "ClassB",
+            "properties": [
+                {
+                    "name": "propertyB",
+                    "type": "int",
+                    "visibility": "private"
+                }
+            ],
+            "methods": [
+                {
+                    "name": "methodB",
+                    "type": "string",
+                    "visibility": "public",
+                    "parameters": [
+                        {
+                            "name": "param1",
+                            "type": "int"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "from": 1,
+            "to": 2,
+            "type": "association",
+            "label": "Association",
+            "multiplicity": "1..*"
+        }
+    ]
+}
