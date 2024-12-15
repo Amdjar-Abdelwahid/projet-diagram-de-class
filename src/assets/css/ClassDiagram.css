@@ -223,4 +223,33 @@
 .modal button.close:hover {
     background-color: #e53935;
 }
-    
+ 
+/* Add these to your existing CSS file */
+.generated-code-section {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+}
+
+.generated-code {
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background-color: #f1f1f1;
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.copy-btn {
+    margin: 10px;
+    background-color: #28a745;
+    color: white;
+}
+
+.copy-btn:hover {
+    background-color: #218838;
+}

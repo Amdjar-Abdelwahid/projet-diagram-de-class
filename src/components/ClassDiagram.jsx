@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as go from "gojs";
 import "../assets/css/ClassDiagram.css";
 import classesData from './classes.json';
+import JavaCodeGenerator from './JavaCodeGenerator';
 
 const ClassDiagram = () => {
     const diagramRef = useRef(null);
@@ -21,7 +22,7 @@ const ClassDiagram = () => {
     const [newRelationship, setNewRelationship] = useState({
         sourceClass: "",
         targetClass: "",
-        type: "inheritance",
+        type: "association",
         multiplicity: "",
         label: ""
     });
@@ -158,21 +159,6 @@ const ClassDiagram = () => {
         const sourceClassName = classes.find(cls => cls.key === parseInt(newRelationship.sourceClass))?.name || 'Unknown';
         const targetClassName = classes.find(cls => cls.key === parseInt(newRelationship.targetClass))?.name || 'Unknown';
     
-        // const relationshipCategories = {
-        //     'inheritance': 'Generalization',
-        //     'realization': 'Realization',
-        //     'association': 'Association',
-        //     'composition': 'Composition',
-        //     'aggregation': 'Aggregation',
-        //     'dependency': 'Dependency'
-        // };
-    
-        // const relationshipArrows = {
-        //     'generalization': { toArrow: 'Triangle',fromArrow: '', fill: 'white' },
-        //     'association': { toArrow: 'OpenTriangle', fromArrow: '' },
-        //     'composition': { toArrow: 'OpenTriangle', fromArrow: 'StretchedDiamond', scale: 1.5 },
-        //     'aggregation': { toArrow: 'OpenTriangle', fromArrow: 'StretchedDiamond', fill: 'white', scale: 1.5 }
-        // };
     
         const newRelationshipData = {
             from: parseInt(newRelationship.sourceClass), 
@@ -205,7 +191,7 @@ const ClassDiagram = () => {
             setNewRelationship({
                 sourceClass: "",
                 targetClass: "",
-                type: "inheritance",
+                type: "association",
                 multiplicity: "",
                 label: ""
             });
@@ -228,13 +214,7 @@ const ClassDiagram = () => {
         // In a real application, you'd use a backend API to write to the file
         console.log('Saving classes:', updatedClasses);
         setClasses(updatedClasses);
-        
-        // If you have a backend, you would make an API call here to update the JSON file
-        // fetch('/api/save-classes', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ classes: updatedClasses })
-        // });
+
     };
 
     // Handlers for modal
@@ -313,6 +293,7 @@ const ClassDiagram = () => {
                 <button className="menu-btn" onClick={() => setIsRelationModalOpen(true)}>
                     Add Relationship
                 </button>
+                <JavaCodeGenerator />
             </div>
             <div className="graph-editor">
                 <div ref={diagramRef} className="graph-container" />
