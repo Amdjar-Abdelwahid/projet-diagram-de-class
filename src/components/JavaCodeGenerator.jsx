@@ -4,6 +4,25 @@ import classesData from './classes.json';
 const JavaCodeGenerator = () => {
     const [generatedCode, setGeneratedCode] = useState('');
 
+    // Helper function to capitalize first letter
+    const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+    // Generate getter method for a property
+    const generateGetter = (prop) => {
+        const methodName = `get${capitalize(prop.name)}`;
+        return `    public ${prop.type} ${methodName}() {
+        return this.${prop.name};
+    }\n\n`;
+    };
+
+    // Generate setter method for a property
+    const generateSetter = (prop) => {
+        const methodName = `set${capitalize(prop.name)}`;
+        return `    public void ${methodName}(${prop.type} ${prop.name}) {
+        this.${prop.name} = ${prop.name};
+    }\n\n`;
+    };
+
     const generateJavaCode = () => {
         let javaCode = '';
         
@@ -18,7 +37,7 @@ const JavaCodeGenerator = () => {
                     const targetClass = classesData.classes.find(c => c.key === rel.to);
                     
                     if (sourceClass && targetClass) {
-                        inheritanceMap[sourceClass.name] = targetClass.name;
+                        inheritanceMap[targetClass.name] = sourceClass.name;
                     }
                 }
             });
@@ -41,7 +60,7 @@ const JavaCodeGenerator = () => {
             classInfo.properties.forEach(prop => {
                 const visibility = prop.visibility === 'private' ? 'private' :
                                    prop.visibility === 'public' ? 'public' :
-                                   prop.visibility === 'protected' ? 'protected' : '';
+                                   prop.visibility === 'protected' ? 'protected' : 'private'; // Default to private
                 javaCode += `    ${visibility} ${prop.type} ${prop.name};\n`;
             });
 
@@ -55,6 +74,12 @@ const JavaCodeGenerator = () => {
                 javaCode += `        super(); // Call parent class constructor\n`;
             }
             javaCode += `    }\n\n`;
+
+            // Generate getters and setters for all properties
+            classInfo.properties.forEach(prop => {
+                javaCode += generateGetter(prop);
+                javaCode += generateSetter(prop);
+            });
 
             // Generate methods
             classInfo.methods.forEach(method => {

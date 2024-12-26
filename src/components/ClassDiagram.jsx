@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as go from "gojs";
 import "../assets/css/ClassDiagram.css";
 import classesData from './classes.json';
-import JavaCodeGenerator from './JavaCodeGenerator';
+import CodeGeneratorSelector from './CodeGeneratorSelector';
 
 const ClassDiagram = () => {
     const diagramRef = useRef(null);
@@ -293,7 +293,7 @@ const ClassDiagram = () => {
                 <button className="menu-btn" onClick={() => setIsRelationModalOpen(true)}>
                     Add Relationship
                 </button>
-                <JavaCodeGenerator />
+                <CodeGeneratorSelector />
             </div>
             <div className="graph-editor">
                 <div ref={diagramRef} className="graph-container" />
